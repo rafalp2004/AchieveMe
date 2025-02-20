@@ -143,18 +143,7 @@ public class ChallengeControllerTests {
                 BigDecimal.valueOf(50),
                 true
         );
-        ChallengeResponseDTO challengeResponseDTO = new ChallengeResponseDTO(
-                1,
-                2,
-                "title",
-                "learning",
-                "description",
-                LocalDateTime.now().plusDays(10),
-                LocalDateTime.now().plusDays(1),
-                BigDecimal.valueOf(50),
-                true,
-                List.of()
-        );
+        ChallengeResponseDTO challengeResponseDTO = new ChallengeResponseDTO(1, 2, "title", "learning", "description", LocalDateTime.now().plusDays(10), LocalDateTime.now().plusDays(1), BigDecimal.valueOf(50), true, List.of());
 
         // Arrange
         Mockito.when(challengeService.createChallenge(Mockito.any(ChallengeCreateRequestDTO.class)))
