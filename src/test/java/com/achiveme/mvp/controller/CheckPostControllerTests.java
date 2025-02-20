@@ -130,12 +130,10 @@ public class CheckPostControllerTests {
         when(checkPostService.createCheckPost(Mockito.eq(challengeId), any(CheckPostRequestDTO.class)))
                 .thenReturn(checkPostResponseDTO);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonRequest = objectMapper.writeValueAsString(checkPostRequestDTO);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/challenges/{challengeId}/check-posts", challengeId)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonRequest))
+                        .content(objectMapper.writeValueAsString(checkPostRequestDTO)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(checkPostResponseDTO.id()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.challengeId").value(challengeId))
