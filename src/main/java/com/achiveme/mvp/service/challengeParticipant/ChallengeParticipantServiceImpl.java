@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class ChallengeParticipantServiceImpl implements ChallengeParticipantService{
+public class ChallengeParticipantServiceImpl implements ChallengeParticipantService {
     private final ChallengeParticipantRepository challengeParticipantRepository;
     private final UserRepository userRepository;
     private final ChallengeRepository challengeRepository;
@@ -41,8 +41,8 @@ public class ChallengeParticipantServiceImpl implements ChallengeParticipantServ
     public ChallengeParticipantResponseDTO createParticipant(int challengeId) {
 
         User user = userService.getCurrentUser();
-        Challenge challenge = challengeRepository.findById(challengeId).orElseThrow(()->new ChallengeDoesNotExistException("Challenge with id: " + challengeId + " does not exist"));
-        if(challenge.getChallengeParticipants().stream().anyMatch(s->s.getUser().equals(user))){
+        Challenge challenge = challengeRepository.findById(challengeId).orElseThrow(() -> new ChallengeDoesNotExistException("Challenge with id: " + challengeId + " does not exist"));
+        if (challenge.getChallengeParticipants().stream().anyMatch(s -> s.getUser().equals(user))) {
             throw new UserAlreadyExistsInChallengeException("User " + user.getId() + " already exists in challenge");
         }
         ChallengeParticipant challengeParticipant = new ChallengeParticipant();
@@ -54,29 +54,29 @@ public class ChallengeParticipantServiceImpl implements ChallengeParticipantServ
 
         challenge.addParticipant(challengeParticipant);
         challengeParticipantRepository.save(challengeParticipant);
-        return  participantMapper.participantToParticipantDTO(challengeParticipant);
+        return participantMapper.participantToParticipantDTO(challengeParticipant);
     }
 
     @Override
     public List<ChallengeParticipantResponseDTO> getParticipantsByChallengeId(int id) {
-        Challenge challenge = challengeRepository.findById(id).orElseThrow(()->new ChallengeDoesNotExistException("Challenge with id: " + id + " do not exist"));
+        Challenge challenge = challengeRepository.findById(id).orElseThrow(() -> new ChallengeDoesNotExistException("Challenge with id: " + id + " do not exist"));
         return challenge.getChallengeParticipants().stream().map(participantMapper::participantToParticipantDTO).toList();
     }
 
     @Override
     public void deleteParticipantById(int challengeId, int participantId) {
 
-        ChallengeParticipant challengeParticipant = challengeParticipantRepository.findById(participantId).orElseThrow(()->new ChallengeParticipantDoesNotExistException("Challenge participant with id: " + participantId + " does not exist"));
+        ChallengeParticipant challengeParticipant = challengeParticipantRepository.findById(participantId).orElseThrow(() -> new ChallengeParticipantDoesNotExistException("Challenge participant with id: " + participantId + " does not exist"));
         challengeParticipantRepository.delete(challengeParticipant);
     }
 
     @Override
     public ChallengeParticipantResponseDTO updateUserStatus(int challengeId, int participantId, ChallengeParticipantUpdateDTO participantUpdateDTO) {
-        ChallengeParticipant participant = challengeParticipantRepository.findById(participantId).orElseThrow(()->new ChallengeParticipantDoesNotExistException("Challenge participant with id: " + participantId + " does not exist"));
-        if(participantUpdateDTO.participantStatus() != null){
+        ChallengeParticipant participant = challengeParticipantRepository.findById(participantId).orElseThrow(() -> new ChallengeParticipantDoesNotExistException("Challenge participant with id: " + participantId + " does not exist"));
+        if (participantUpdateDTO.participantStatus() != null) {
             participant.setParticipantStatus(participantUpdateDTO.participantStatus());
         }
-        if(participantUpdateDTO.paymentStatus() != null){
+        if (participantUpdateDTO.paymentStatus() != null) {
             participant.setPaymentStatus(participantUpdateDTO.paymentStatus());
         }
         challengeParticipantRepository.save(participant);

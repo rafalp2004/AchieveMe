@@ -9,12 +9,12 @@ import jakarta.validation.constraints.Size;
 public record UserCreateRequestDTO(
         @NotNull(message = "First name cannot be null")
         @NotBlank(message = "First name cannot be blank")
-        @Size(min=2, max=50, message="First name must be between 2 and 50 characters")
+        @Size(min = 2, max = 50, message = "First name must be between 2 and 50 characters")
         String firstName,
 
         @NotNull(message = "Last name cannot be null")
         @NotBlank(message = "Last name cannot be blank")
-        @Size(min=2, max=50, message="Last name must be between 2 and 50 characters")
+        @Size(min = 2, max = 50, message = "Last name must be between 2 and 50 characters")
         String lastName,
 
         @NotNull(message = "Email cannot be null")
@@ -23,7 +23,7 @@ public record UserCreateRequestDTO(
 
         @NotNull(message = "Password name cannot be null")
         @NotBlank(message = "Password name cannot be blank")
-        @Size(min=2, max=50, message="Password must be between 2 and 50 characters")
+        @Size(min = 2, max = 50, message = "Password must be between 2 and 50 characters")
         String password
 ) {
 }

@@ -8,8 +8,8 @@ import com.achiveme.mvp.entity.CheckPost;
 import com.achiveme.mvp.entity.User;
 import com.achiveme.mvp.enums.CheckPostStatus;
 import com.achiveme.mvp.exception.Challenge.ChallengeDoesNotExistException;
-import com.achiveme.mvp.exception.User.UnauthorizedException;
 import com.achiveme.mvp.exception.CheckPost.CheckPostDoesNotExistException;
+import com.achiveme.mvp.exception.User.UnauthorizedException;
 import com.achiveme.mvp.mapper.CheckPostMapper;
 import com.achiveme.mvp.repository.ChallengeRepository;
 import com.achiveme.mvp.repository.CheckPostRepository;
@@ -59,7 +59,8 @@ public class CheckPostServiceImpl implements CheckPostService {
             checkPostRepository.save(checkPost);
 
             return checkPostMapper.checkPostToCheckPostDTO(checkPost);
-        } else throw new UnauthorizedException("User with id " + user.getId() + " is not a part of challenge with id " + challengeId);
+        } else
+            throw new UnauthorizedException("User with id " + user.getId() + " is not a part of challenge with id " + challengeId);
     }
 
     @Override

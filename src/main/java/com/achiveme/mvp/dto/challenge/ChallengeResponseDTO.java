@@ -10,6 +10,7 @@ public record ChallengeResponseDTO(
         int id,
         int creatorUser,
         String title,
+        // TODO Change that to existing ENUM
         String purpose,
         String description,
         LocalDateTime deadline,

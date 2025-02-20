@@ -7,32 +7,31 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Table(name="payments")
+@Table(name = "payments")
 @Entity
 @Data
-public class Payment{
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="payment_id")
+    @Column(name = "payment_id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="challange_id")
+    @JoinColumn(name = "challange_id")
     private Challenge challenge;
 
-    @Column(name="amount")
+    @Column(name = "amount")
     private BigDecimal amount;
 
-    @Column(name="payment_date")
+    @Column(name = "payment_date")
     private LocalDateTime paymentDate;
 
-    @Column(name="payment_status")
+    @Column(name = "payment_status")
     private PaymentStatus paymentStatus;
-
 
 
 }

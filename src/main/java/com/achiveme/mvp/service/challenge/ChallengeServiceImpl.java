@@ -17,7 +17,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class ChallengeServiceImpl implements ChallengeService{
+public class ChallengeServiceImpl implements ChallengeService {
 
     private final UserRepository userRepository;
     private final ChallengeMapper challengeMapper;
@@ -51,7 +51,7 @@ public class ChallengeServiceImpl implements ChallengeService{
 
     @Override
     public ChallengeResponseDTO getChallengeById(int id) {
-        Challenge challenge = challengeRepository.findById(id).orElseThrow(()->new ChallengeDoesNotExistException("Challenge with id: " + id + " does not exist"));
+        Challenge challenge = challengeRepository.findById(id).orElseThrow(() -> new ChallengeDoesNotExistException("Challenge with id: " + id + " does not exist"));
         return challengeMapper.challengeToChallengeDTO(challenge);
     }
 
@@ -62,13 +62,13 @@ public class ChallengeServiceImpl implements ChallengeService{
 
     @Override
     public void deleteChallengeById(int id) {
-        Challenge challenge = challengeRepository.findById(id).orElseThrow(()->new ChallengeDoesNotExistException("Challenge with id: +" + id + " does not exist"));
+        Challenge challenge = challengeRepository.findById(id).orElseThrow(() -> new ChallengeDoesNotExistException("Challenge with id: +" + id + " does not exist"));
         challengeRepository.delete(challenge);
     }
 
     @Override
     public ChallengeResponseDTO updateChallenge(int id, ChallengeUpdateRequestDTO challengeDTO) {
-        Challenge challenge = challengeRepository.findById(id).orElseThrow(()->new ChallengeDoesNotExistException("Challenge with id: +" + id + " does not exist"));
+        Challenge challenge = challengeRepository.findById(id).orElseThrow(() -> new ChallengeDoesNotExistException("Challenge with id: +" + id + " does not exist"));
         challenge.setTitle(challengeDTO.title());
         challenge.setDescription(challengeDTO.description());
         challenge.setDeadline(challengeDTO.deadline());
@@ -82,7 +82,7 @@ public class ChallengeServiceImpl implements ChallengeService{
 
     @Override
     public boolean userIsParticipant(int challengeId, int userId) {
-        Challenge challenge = challengeRepository.findById(challengeId).orElseThrow(()->new ChallengeDoesNotExistException("Challenge with id: +" + challengeId + " does not exist"));
-        return(challenge.getChallengeParticipants().stream().anyMatch(participant -> participant.getUser().getId()==userId));
+        Challenge challenge = challengeRepository.findById(challengeId).orElseThrow(() -> new ChallengeDoesNotExistException("Challenge with id: +" + challengeId + " does not exist"));
+        return (challenge.getChallengeParticipants().stream().anyMatch(participant -> participant.getUser().getId() == userId));
     }
 }

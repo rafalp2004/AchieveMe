@@ -23,7 +23,7 @@ public class ChallengeParticipantController {
 
     @PostMapping("/challenges/{challengeID}/participants")
     ResponseEntity<ChallengeParticipantResponseDTO> createChallengeParticipant(
-            @PathVariable int challengeID){
+            @PathVariable int challengeID) {
         ChallengeParticipantResponseDTO createdParticipant = challengeParticipantService.createParticipant(challengeID);
         return ResponseEntity
                 .created(URI.create("/challenges/" + challengeID + "/participants/" + createdParticipant.id()))
@@ -36,10 +36,10 @@ public class ChallengeParticipantController {
     }
 
     @DeleteMapping("/challenges/{challengeId}/participants/{participantId}")
-     ResponseEntity<Void> deleteChallengeParticipant(
-             @PathVariable int challengeId,
-             @PathVariable int participantId ) {
-        challengeParticipantService.deleteParticipantById(challengeId ,participantId);
+    ResponseEntity<Void> deleteChallengeParticipant(
+            @PathVariable int challengeId,
+            @PathVariable int participantId) {
+        challengeParticipantService.deleteParticipantById(challengeId, participantId);
         return ResponseEntity.noContent().build();
     }
 
@@ -48,7 +48,7 @@ public class ChallengeParticipantController {
     ResponseEntity<ChallengeParticipantResponseDTO> updateStatusChallengeParticipant(
             @PathVariable int challengeId,
             @PathVariable int participantId,
-            @RequestBody ChallengeParticipantUpdateDTO participantUpdateDTO ) {
+            @RequestBody ChallengeParticipantUpdateDTO participantUpdateDTO) {
         ChallengeParticipantResponseDTO participantResponseDTO = challengeParticipantService.updateUserStatus(challengeId, participantId, participantUpdateDTO);
         return new ResponseEntity<>(participantResponseDTO, HttpStatus.OK);
     }

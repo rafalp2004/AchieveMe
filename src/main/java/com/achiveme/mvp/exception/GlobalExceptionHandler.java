@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(UserDoesNotExistException.class)
-    public ResponseEntity<ErrorResponse> handleUserDoesNotExist(UserDoesNotExistException ex){
+    public ResponseEntity<ErrorResponse> handleUserDoesNotExist(UserDoesNotExistException ex) {
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 ex.getMessage(),
@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ChallengeDoesNotExistException.class)
-    public ResponseEntity<ErrorResponse> handleChallengeDoesNotExist(ChallengeDoesNotExistException ex){
+    public ResponseEntity<ErrorResponse> handleChallengeDoesNotExist(ChallengeDoesNotExistException ex) {
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 ex.getMessage(),
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ChallengeParticipantDoesNotExistException.class)
-    public ResponseEntity<ErrorResponse> handleChallengeParticipantDoesNotExist(ChallengeParticipantDoesNotExistException ex){
+    public ResponseEntity<ErrorResponse> handleChallengeParticipantDoesNotExist(ChallengeParticipantDoesNotExistException ex) {
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.NOT_FOUND.value(),
                 ex.getMessage(),
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UnauthorizedException.class)
-    public ResponseEntity<ErrorResponse> unauthorized(UnauthorizedException ex){
+    public ResponseEntity<ErrorResponse> unauthorized(UnauthorizedException ex) {
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.UNAUTHORIZED.value(),
                 ex.getMessage(),
@@ -60,9 +60,8 @@ public class GlobalExceptionHandler {
     }
 
 
-
     @ExceptionHandler(UserAlreadyExistsInChallengeException.class)
-    public ResponseEntity<ErrorResponse> handleUserAlreadyExistsInChallenge(UserAlreadyExistsInChallengeException ex){
+    public ResponseEntity<ErrorResponse> handleUserAlreadyExistsInChallenge(UserAlreadyExistsInChallengeException ex) {
         ErrorResponse error = new ErrorResponse(
                 HttpStatus.CONFLICT.value(),
                 ex.getMessage(),

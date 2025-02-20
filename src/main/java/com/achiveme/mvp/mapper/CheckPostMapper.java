@@ -5,8 +5,8 @@ import com.achiveme.mvp.entity.CheckPost;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel="spring")
+@Mapper(componentModel = "spring")
 public interface CheckPostMapper {
-    @Mapping(source="challenge.id", target = "challengeId")
+    @Mapping(source = "challenge.id", target = "challengeId")
     CheckPostResponseDTO checkPostToCheckPostDTO(CheckPost checkPost);
 }

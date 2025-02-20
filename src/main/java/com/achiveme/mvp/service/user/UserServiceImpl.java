@@ -20,7 +20,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper, AuthenticationManager authenticationManager, JwtService jwtService) {
         this.userRepository = userRepository;
@@ -104,9 +103,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void changePassword(int id, UserChangePasswordRequestDTO userDTO) {
         if (isCurrentUserAdmin() || getCurrentUser().getId() == id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new UserDoesNotExistException("User with id: +" + id + " does not exist"));
-        user.setPasswordHash(passwordEncoder.encode(userDTO.password()));
-        userRepository.save(user);
+            User user = userRepository.findById(id).orElseThrow(() -> new UserDoesNotExistException("User with id: +" + id + " does not exist"));
+            user.setPasswordHash(passwordEncoder.encode(userDTO.password()));
+            userRepository.save(user);
         } else throw new UnauthorizedException("Don't have permission to this method");
     }
 

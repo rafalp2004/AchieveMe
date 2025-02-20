@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ErrorResponse {
-    private int status;
-    private String message;
-    private LocalDateTime timestamp;
+    private final int status;
+    private final String message;
+    private final LocalDateTime timestamp;
     private List<String> errors;
 
 
@@ -15,6 +15,7 @@ public class ErrorResponse {
         this.message = message;
         this.timestamp = timestamp;
     }
+
     public List<String> getErrors() {
         return errors;
     }

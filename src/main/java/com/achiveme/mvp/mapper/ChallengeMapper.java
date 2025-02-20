@@ -9,6 +9,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {ParticipantMapper.class})
 public interface ChallengeMapper {
     @Mapping(source = "creatorUser.id", target = "creatorUser")
-    @Mapping(source ="challengeParticipants", target = "participants")
+    @Mapping(source = "challengeParticipants", target = "participants")
     ChallengeResponseDTO challengeToChallengeDTO(Challenge challenge);
 }

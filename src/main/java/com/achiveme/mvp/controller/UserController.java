@@ -23,29 +23,26 @@ public class UserController {
 
     }
 
-    @GetMapping(path="/users/{id}")
-    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable int id){
+    @GetMapping(path = "/users/{id}")
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable int id) {
         UserResponseDTO user = userService.getUserById(id);
-        return new ResponseEntity<>(user,HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @DeleteMapping(path="/users/{id}")
-    public ResponseEntity<Void> deleteUserById(@PathVariable int id){
+    @DeleteMapping(path = "/users/{id}")
+    public ResponseEntity<Void> deleteUserById(@PathVariable int id) {
         userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
     }
 
-
-
-    @GetMapping(path="/users")
-    public ResponseEntity<List<UserResponseDTO>> getAllUsers(){
+    @GetMapping(path = "/users")
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         List<UserResponseDTO> users = userService.getAllUsers();
-        return new ResponseEntity<>(users,HttpStatus.OK);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 
-    //TODO error when there are 2 users with the same firstname and lastname
-    @PostMapping(path="/users")
+    @PostMapping(path = "/users")
     public ResponseEntity<UserResponseDTO> createUser(@Valid @RequestBody UserCreateRequestDTO userDTO) {
         UserResponseDTO createdUser = userService.createUser(userDTO);
         return ResponseEntity
@@ -53,20 +50,19 @@ public class UserController {
                 .body(createdUser);
     }
 
-    //TODO Checking if all values are changing
-    @PatchMapping(path="/users/{id}")
+    @PatchMapping(path = "/users/{id}")
     public ResponseEntity<UserResponseDTO> updateUser(
             @PathVariable int id,
-            @Valid @RequestBody UserUpdateRequestDTO userDTO){
+            @Valid @RequestBody UserUpdateRequestDTO userDTO) {
         UserResponseDTO updatedUser = userService.updateUser(id, userDTO);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
-    @PatchMapping(path="/users/{id}/change-password")
+    @PatchMapping(path = "/users/{id}/change-password")
     public ResponseEntity<Void> changePassword(
             @PathVariable int id,
-            @Valid@RequestBody UserChangePasswordRequestDTO userDTO) {
-        userService.changePassword(id,userDTO);
+            @Valid @RequestBody UserChangePasswordRequestDTO userDTO) {
+        userService.changePassword(id, userDTO);
         return ResponseEntity.noContent().build();
     }
 }

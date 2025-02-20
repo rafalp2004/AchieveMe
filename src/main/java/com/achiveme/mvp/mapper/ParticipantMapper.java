@@ -7,8 +7,8 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface ParticipantMapper {
-    @Mapping(source="challenge.id", target = "challengeId")
-    @Mapping(source="user.id", target="userId")
+    @Mapping(source = "challenge.id", target = "challengeId")
+    @Mapping(source = "user.id", target = "userId")
     ChallengeParticipantResponseDTO participantToParticipantDTO(ChallengeParticipant participant);
 
 }

@@ -27,7 +27,7 @@ public class SecurityConfig {
 
     private final MyUserDetailsService myUserDetailsService;
 
-    private JwtFilter jwtFilter;
+    private final JwtFilter jwtFilter;
 
     public SecurityConfig(MyUserDetailsService myUserDetailsService, UserRepository userRepository, JwtFilter jwtFilter) {
         this.myUserDetailsService = myUserDetailsService;
@@ -41,8 +41,8 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/users/{id}").authenticated()//TODO you can get only yourself unless you're admin. Add also more info in this endpoint
                         .requestMatchers(HttpMethod.DELETE, "/users/{id}").authenticated()
@@ -57,18 +57,18 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.POST, "/challenges/{challengeId}/participants").authenticated()
                         .requestMatchers(HttpMethod.GET, "/challenges/{challengeId}/participants").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/challenges/{challengeId}/participants/participantId").hasAnyRole("MODERATOR","ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/challenges/{challengeId}/participants/participantId").hasAnyRole("MODERATOR","ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/challenges/{challengeId}/participants/participantId").hasAnyRole("MODERATOR", "ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/challenges/{challengeId}/participants/participantId").hasAnyRole("MODERATOR", "ADMIN")
 
                         .requestMatchers(HttpMethod.POST, "/challenges/{challengeId}check-posts").authenticated()
                         .requestMatchers(HttpMethod.GET, "/challenges/{challengeId}/check-posts").authenticated()
                         .requestMatchers(HttpMethod.GET, "/challenges/check-posts/{id}").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/challenges/check-posts/{id}").authenticated()
 
-                        .requestMatchers(HttpMethod.POST, "/challenges/check-posts/{checkPostId}/confirm").hasAnyRole("MODERATOR","ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/challenges/check-posts/{checkPostId}/unconfirm").hasAnyRole("MODERATOR","ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/challenges/check-posts/{checkPostId}/confirm").hasAnyRole("MODERATOR", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/challenges/check-posts/{checkPostId}/unconfirm").hasAnyRole("MODERATOR", "ADMIN")
 
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session ->
@@ -79,12 +79,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return new InMemoryUserDetailsManager();
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(new BCryptPasswordEncoder(12));
         provider.setUserDetailsService(myUserDetailsService);

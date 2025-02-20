@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ChallengeService {
     ChallengeResponseDTO createChallenge(ChallengeCreateRequestDTO challengeDTO);
+
     ChallengeResponseDTO getChallengeById(int id);
 
     List<ChallengeResponseDTO> getAllChallenges();
