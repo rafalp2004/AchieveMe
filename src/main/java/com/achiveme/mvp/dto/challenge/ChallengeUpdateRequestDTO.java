@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record ChallengeUpdateRequestDTO(
-        @NotBlank(message = "ID cannot be blank.")
+        @NotNull(message = "ID cannot be Null.")
         int challengeId,
 
         @NotBlank(message = "Title cannot be blank.")

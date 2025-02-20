@@ -37,7 +37,7 @@ public class ChallengeController {
         return new ResponseEntity<>(challenge, HttpStatus.CREATED);
     }
 
-    @PutMapping("/challenges/{id}")
+    @PatchMapping("/challenges/{id}")
     ResponseEntity<ChallengeResponseDTO> updateChallenge(
             @PathVariable int id,
             @Valid @RequestBody ChallengeUpdateRequestDTO challengeDTO) {
