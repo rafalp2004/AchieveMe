@@ -22,8 +22,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@Valid @RequestBody LoginUserDTO userDTO) {
-        log.info(userDTO.email());
-        log.info(userDTO.password());
         String token = userService.verify(userDTO);
         return ResponseEntity.ok()
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
