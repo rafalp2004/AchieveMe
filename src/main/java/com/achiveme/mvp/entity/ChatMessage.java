@@ -11,11 +11,13 @@ import java.time.LocalDateTime;
 public class ChatMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="message_id")
+    @Column(name="id")
     private Long id;
 
     @Column(name="content")
     private String content;
+
+    @Column(name="timestamp")
     private LocalDateTime timestamp;
 
     @ManyToOne(fetch=FetchType.LAZY)
