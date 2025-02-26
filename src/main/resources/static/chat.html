@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Chat WebSocket</title>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+    <style>
+        #chatArea {
+            border: 1px solid #ccc;
+            height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        #messageInput {
+            width: 80%;
+            padding: 5px;
+        }
+        #sendButton {
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>WebSocket Chat</h1>
+<div id="chatArea"></div>
+<input type="text" id="messageInput" placeholder="Send message..." />
+<button id="sendButton" onclick="sendMessage()">Send</button>
+
+<script>
+    var stompClient = null;
+    // Przykładowe dane: ustaw odpowiednie wartości challengeId, senderId i senderName
+    var challengeId = 19;
+    var senderId = 1;
+    var senderName = "Jan";
+
+    function connect() {
+        var socket = new SockJS('/api/ws');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function(frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/challenge/' + challengeId, function(messageOutput) {
+                var message = JSON.parse(messageOutput.body);
+                showMessage(message);
+            });
+        });
+    }
+
+    function sendMessage() {
+        var content = document.getElementById("messageInput").value.trim();
+        if (content && stompClient) {
+            var chatMessage = {
+                id: null,
+                content: content,
+                timestamp: null,
+                senderId: senderId,
+                senderName: senderName,
+                challengeId: challengeId
+            };
+            stompClient.send("/app/challenge/" + challengeId, {}, JSON.stringify(chatMessage));
+            document.getElementById("messageInput").value = "";
+        }
+    }
+
+    function showMessage(message) {
+        var chatArea = document.getElementById("chatArea");
+        var messageElement = document.createElement("div");
+        messageElement.innerHTML = "<strong>" + message.senderName + ":</strong> " + message.content;
+        chatArea.appendChild(messageElement);
+        // Opcjonalnie przewiń do dołu
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    // Nawiąż połączenie po załadowaniu strony
+    window.onload = connect;
+</script>
+</body>
+</html>
